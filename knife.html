@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Детали ножа</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #ffffff;
+      color: #000;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 14px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      margin: 12px 0 20px;
+      padding: 8px 14px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #222;
+    }
+
+    .product {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .gallery {
+      order: 1;
+    }
+
+    .main-image-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #f9f9f9;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .thumbnails {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      justify-content: center;
+    }
+
+    .thumb {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .thumb.active,
+    .thumb:hover {
+      border-color: #000;
+      transform: scale(1.04);
+    }
+
+    .info {
+      order: 2;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      line-height: 1.2;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 800;
+      margin: 0 0 20px;
+    }
+
+    .specs-card {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 20px 0;
+    }
+
+    .specs-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .spec-row {
+      display: flex;
+      margin: 10px 0;
+      font-size: 15px;
+    }
+
+    .spec-label {
+      width: 110px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .spec-value {
+      flex: 1;
+    }
+
+    .description {
+      font-size: 15.5px;
+      line-height: 1.55;
+      margin: 0 0 28px;
+      color: #111;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 24px 0 40px;
+    }
+
+    .quantity-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 48px;
+    }
+
+    .qty-btn {
+      width: 48px;
+      height: 48px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .qty-btn:hover {
+      background: #222;
+    }
+
+    .qty-value {
+      min-width: 60px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .add-to-cart-btn {
+      height: 52px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #222;
+    }
+
+    /* Блок оформления заказа + иконки */
+    .order-notice {
+      position: relative;
+background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 10px;
+      padding: 12px 70px 12px 10px;   /* больше слева, место справа под иконки */
+      margin: 12px auto 24px;
+      max-width: 95%;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 500;
+      color: #444;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      text-overflow: ellipsis;
+      display: flex;
+      justify-content: space-between;
+      
+    }
+
+    .order-notice strong {
+      color: #000;
+    }
+
+    .social {
+      position: absolute;
+      top: 50%;
+      right: 1px;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+      background: #000;
+      color: #fff;
+    }
+
+    .social a:hover {
+      transform: scale(1.12);
+    }
+
+    /* Адаптив */
+    @media (max-width: 420px) {
+      .order-notice {
+        padding: 10px 54px 10px 16px;
+        font-size: 11px;
+        max-width: 100%;
+      }
+      .social {
+        right: 10px;
+        gap: 8px;
+      }
+      .social a {
+        width: 34px;
+        height: 34px;
+      }
+      .social a svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .order-notice {
+        max-width: 500px;
+        padding: 14px 70px 14px 24px;
+      }
+      .social a {
+        width: 42px;
+        height: 42px;
+      }
+      .social a svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    /* Остальные стили без изменений */
+    @media (min-width: 769px) {
+      .product {
+        flex-direction: row;
+        gap: 40px;
+      }
+      .gallery {
+        flex: 1 1 520px;
+      }
+      .info {
+        flex: 1 1 420px;
+      }
+      .main-image-wrapper {
+        height: 460px;
+        aspect-ratio: auto;
+      }
+      .actions {
+        flex-direction: row;
+        align-items: center;
+        margin: 32px 0 0;
+      }
+      .add-to-cart-btn {
+        flex: 1;
+        max-width: 320px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .title       { font-size: 24px; }
+      .price       { font-size: 32px; }
+      .qty-btn     { width: 42px; height: 42px; font-size: 22px; }
+      .qty-value   { font-size: 18px; min-width: 50px; }
+      .add-to-cart-btn { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="order-notice">
+ Для оформления заказа отправьте скриншот корзины в
+  <div class="social">
+    <a href="https://t.me/AMERMILS" target="_blank" class="telegram">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path d="M9.993 15.674 9.74 19.2c.36 0 .516-.155.704-.34l1.69-1.61 3.5 2.56c.64.355 1.09.168 1.25-.59l2.27-10.68c.2-.92-.33-1.28-.95-1.05L2.74 9.15c-.9.35-.89.85-.16 1.07l4.3 1.34L16.9 6.6c.47-.31.9-.14.55.17z"/>
+      </svg>
+    </a>
+    <a href="https://wa.me/79991234567" target="_blank" class="whatsapp">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+</div>
+    </a>
+  </div>
+</div>
+
+<div class="container">
+  <a href="knives.html" class="back-btn">← К товарам</a>
+
+  <div class="product">
+    <div class="gallery">
+      <div class="main-image-wrapper">
+        <img id="mainImage" class="main-image" src="" alt="Нож">
+      </div>
+      <div class="thumbnails" id="thumbnails"></div>
+    </div>
+
+    <div class="info">
+      <h1 id="name" class="title"></h1>
+      <div class="price">$<span id="price"></span></div>
+
+      <div class="specs-card">
+        <div class="specs-title">Характеристики</div>
+        <div class="spec-row">
+          <div class="spec-label">Год:</div>
+          <div class="spec-value" id="year"></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-label">Материал:</div>
+          <div class="spec-value" id="material"></div>
+        </div>
+      </div>
+
+      <div id="description" class="description"></div>
+
+      <div class="actions">
+        <div class="quantity-row">
+          <button class="qty-btn minus" type="button">−</button>
+          <span class="qty-value" id="qty">1</span>
+          <button class="qty-btn plus" type="button">+</button>
+        </div>
+        <button class="add-to-cart-btn" id="addToCart">Добавить в корзину</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Функции корзины и загрузка данных — без изменений
+function getCart() {
+  return JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart(cart) {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(productId, quantity) {
+  let cart = getCart();
+  const existingItem = cart.find(item => item.id === productId);
+
+  if (existingItem) {
+    existingItem.qty += quantity;
+  } else {
+    const name = document.getElementById('name').textContent;
+    const price = Number(document.getElementById('price').textContent);
+    const image = document.getElementById('mainImage').src.split('/').pop();
+    const year = document.getElementById('year').textContent;
+    const material = document.getElementById('material').textContent;
+    const description = document.getElementById('description').textContent;
+
+    cart.push({
+      id: productId,
+      name: name,
+      price: price,
+      qty: quantity,
+      image: image,
+      year: year,
+      material: material,
+      description: description
+    });
+  }
+
+  saveCart(cart);
+}
+
+const knives = [
+  {id:"knife1", name:"Ката", year:2022, material:"Сталь", price:250, description:"Традиционная японская катана.",images:["1.jpg","2.jpg", "3.jpg","4.jpg"]},
+  {id:"knife2", name:"Танто", year:2023, material:"Углерод", price:180, description:"Компактный боевой нож.",images:["2.jpg","13.jpg","14.jpg"]},
+  {id:"knife3", name:"Финка", year:2021, material:"Сталь", price:200, description:"Финский нож для походов.",images:["3.jpg","4.jpg"]},
+  {id:"knife4", name:"Керамбит", year:2023, material:"Керамика", price:220, description:"Нож с изогнутым лезвием.",images:["4.jpg"]},
+  {id:"knife5", name:"Штык-нож", year:2020, material:"Сталь", price:300, description:"",image:"knife5.jpeg"},
+  {id:"knife6", name:"Боуи", year:2019, material:"Сталь", price:280, description:"Американский нож-боевой инструмент.",images:["f.jpg","e.jpg"]},
+  {id:"knife7", name:"Сай", year:2021, material:"Углерод", price:15000, description:"Короткий тренировочный нож.",images:["f.jpg","e.jpg"]},
+  {id:"knife8", name:"Широбан", year:2022, material:"Сталь", price:260, description:"Традиционный японский нож.",images:["f.jpg","e.jpg"]},
+  {id:"knife9", name:"Рейнджер", year:2020, material:"Сталь", price:240, description:"Нож для выживания.",images:["f.jpg","e.jpg"]},
+  {id:"knife10", name:"Керамбит Pro", year:2023, material:"Керамика", price:320, description:"Профессиональный керамбит.",images:["f.jpg","e.jpg"]},
+  {id:"knife11", name:"Фалькон", year:2021, material:"Сталь", price:210, description:"Универсальный туристический нож.",images:["f.jpg","e.jpg"]},
+  {id:"knife12", name:"Астра", year:2022, material:"Углерод", price:230, description:"Легкий нож для походов.",images:["f.jpg","e.jpg"]},
+  {id:"knife13", name:"Рапира", year:2020, material:"Сталь", price:1900, description:"Элегантный нож для коллекции.",images:["f.jpg","e.jpg"]},
+  {id:"knife14", name:"Викинг", year:2019, material:"Сталь", price:270, description:"Нож в стиле викингов.",images:["f.jpg","e.jpg"]},
+  {id:"knife15", name:"Тандер", year:2023, material:"Керамика", price:310, description:"Боевой нож  прочным лезвием.",images:["f.jpg","e.jpg"]},
+  {id:"knife16", name:"Акула", year:2021, material:"Сталь", price:220, description:"Нож агрессивным дизайном.",images:["f.jpg","e.jpg"]},
+  {id:"knife17", name:"Барс", year:2022, material:"Углерод", price:260, description:"Компактный нож для туризма.",images:["f.jpg","e.jpg"]},
+  {id:"knife18", name:"Тигр", year:2020, material:"Сталь", price:280, description:"Коллекционный боевой нож.",images:["f.jpg","e.jpg"]},
+  {id:"knife19", name:"Сокол", year:2021, material:"Керамика", price:240, description:"Быстрый и легкий нож.",images:["f.jpg","e.jpg"]},
+  {id:"knife20", name:"Феникс", year:2023, material:"Сталь", price:32000, description:"Профессиональный нож для выживания.",image:"s.jpg"},
+  {id:"knife21", name:"Дракон", year:2022, material:"Сталь", price:300, description:"Мощный боевой нож.",image:"u.jpg"},
+  {id:"knife22", name:"Орёл", year:2020, material:"Углерод", price:230, description:"Легкий туристический нож.",image:"v.jpg"},
+  {id:"knife23", name:"Пантера", year:2021, material:"Сталь", price:270, description:"Коллекционный нож  изогнутым лезвием.",image:"w.jpg"},
+  {id:"knife24", name:"Волк", year:2019, material:"Сталь", price:2500, description:"Надёжный нож для походов.",image:"x.jpg"},
+  {id:"knife25", name:"Гепард", year:2023, material:"Керамика", price:310, description:"Быстрый и острый нож.",image:"y.jpg"},
+  {id:"knife32", name:"Койот", year:2022, material:"Углерод", price:250, description:"Нож для выживания и туризма.",image:"z.jpg"},
+  {id:"knife33", name:"Медведь", year:2023, material:"Сталь", price:300, description:"Мощный нож для охоты.",image:"k.jpg"},
+  // ... остальные записи (можно добавить или убрать дубликаты)
+];
+
+const params = new URLSearchParams(window.location.search);
+const knife = knives.find(k => k.id === params.get("id"));
+
+if (!knife) {
+  document.body.innerHTML = "<h1 style='text-align:center;padding:100px 20px;'>Товар не найден</h1>";
+} else {
+  document.getElementById("name").textContent    = knife.name;
+  document.getElementById("price").textContent   = knife.price;
+  document.getElementById("year").textContent    = knife.year;
+  document.getElementById("material").textContent = knife.material;
+  document.getElementById("description").textContent = knife.description;
+
+  let images = knife.images || (knife.image ? [knife.image] : ["placeholder.jpg"]);
+  const mainImg = document.getElementById("mainImage");
+  const thumbsContainer = document.getElementById("thumbnails");
+
+  mainImg.src = "static/images/" + images[0];
+  mainImg.alt = knife.name;
+
+
+images.forEach((img, idx) => {
+    const thumb = document.createElement("img");
+    thumb.src = "static/images/" + img;
+    thumb.className = "thumb";
+    thumb.alt = `${knife.name} ${idx + 1};`
+    if (idx === 0) thumb.classList.add("active");
+
+    thumb.onclick = () => {
+      mainImg.src = thumb.src;
+      thumbsContainer.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
+    };
+
+    thumbsContainer.appendChild(thumb);
+  });
+
+  let qty = 1;
+  const qtyEl = document.getElementById("qty");
+  const minus = document.querySelector(".minus");
+  const plus  = document.querySelector(".plus");
+  const addBtn = document.getElementById("addToCart");
+
+  qtyEl.textContent = qty;
+
+  minus.onclick = () => { 
+    if (qty > 1) { 
+      qty--; 
+      qtyEl.textContent = qty; 
+    } 
+  };
+
+  plus.onclick  = () => { 
+    qty++; 
+    qtyEl.textContent = qty; 
+  };
+
+  addBtn.onclick = () => {
+    const productId = params.get("id");
+    addToCart(productId, qty);
+
+    const originalText = addBtn.textContent;
+    addBtn.textContent = "Добавлено ✓";
+    addBtn.disabled = true;
+    setTimeout(() => {
+      addBtn.textContent = originalText;
+      addBtn.disabled = false;
+    }, 1400);
+  };
+}
+</script>
+</body>
+</html>
