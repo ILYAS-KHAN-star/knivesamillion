@@ -17,7 +17,7 @@ body {
   padding: 20px;
 }
 
-/* ===== Социальные иконки в правом верхнем углу ===== */
+/* Социальные иконки в правом верхнем углу */
 .social {
   position: fixed;
   top: 12px;
@@ -45,7 +45,7 @@ body {
   transform: scale(1.15);
 }
 
-/* ===== КОРЗИНА ===== */
+/* КОРЗИНА */
 .cart-wrapper {
   display: flex;
   flex-direction: column;
@@ -75,15 +75,76 @@ body {
   position: absolute;
   top: 45px;
   left: 0;
-  width: 260px;
-  background: rgba(255,255,255,0.95);
+  width: 280px;
+  background: rgba(255,255,255,0.97);
   padding: 14px;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,.3);
   z-index: 30;
+  max-height: 70vh;
+  overflow-y: auto;
 }
-.cart-popup h3 { margin-top: 0; }
-.cart-item { font-size: 13px; margin-bottom: 6px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+.cart-popup h3 { margin: 0 0 12px; font-size: 18px; }
+
+/* Элемент корзины */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  gap: 8px;
+}
+.cart-item-info {
+  flex: 1;
+  line-height: 1.3;
+}
+.cart-item-total {
+  font-weight: bold;
+  min-width: 50px;
+  text-align: right;
+  font-size: 13px;
+}
+
+/* Кнопка "Удалить" — маленькая */
+.remove-item-btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+  min-width: 60px;
+}
+
+.remove-item-btn:hover {
+  background: #222;
+}
+
+/* Кнопка "Очистить корзину" — крупная */
+#clearCartBtn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  margin-top: 12px;
+}
+
+#clearCartBtn:hover {
+  background: #222;
+}
 
 /* ===== Поиск + фильтр ===== */
 .search-bar {
@@ -134,7 +195,7 @@ body {
 /* ===== GRID ===== */
 .knives-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* шире карточки */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 18px;
   width: 100%;
   max-width: 1100px;
@@ -239,7 +300,7 @@ body {
   font-weight: bold;
 }
 
-/* ===== Уведомление сверху ===== */
+/* Уведомление сверху */
 .top-notice {
   width: 100%;
   max-width: 1100px;
@@ -276,7 +337,7 @@ body {
   text-decoration: none;
 }
 
-/* ===== Пагинация ===== */
+/* Пагинация */
 #pagination { 
   margin: 30px 0; 
   display: flex; 
@@ -297,7 +358,7 @@ body {
   color: #000; 
 }
 
-/* ===== Мобильная адаптация ===== */
+/* Мобильная адаптация */
 @media (max-width: 600px) {
   body { padding: 12px; }
   .search-bar { flex-direction: column; gap: 8px; }
@@ -306,7 +367,7 @@ body {
   .knife-card h3 { font-size: 15px; }
   .knife-card p { font-size: 13px; }
   #pagination button { font-size: 13px; padding: 6px 10px; }
-  .cart-popup { top: 50px; width: 100%; left: 0; max-width: 300px; }
+  .cart-popup { top: 50px; width: 100%; left: 0; max-width: 280px; }
 }
 
 @media (max-width: 420px) {
@@ -357,9 +418,7 @@ body {
     <h3>Корзина</h3>
     <div id="cartItems"></div>
     <strong>Итого: $<span id="cartTotal">0</span></strong>
-    <button id="clearCartBtn" style="margin-top:10px; width:100%; padding:8px; border:none; border-radius:8px; background:#000; color:#fff; cursor:pointer;">
-      Очистить корзину
-    </button>
+    <button id="clearCartBtn">Очистить корзину</button>
   </div>
 </div>
 
@@ -415,7 +474,6 @@ const knives = [
   {id:"knife25", name:"Гепард", year:2023, material:"Керамика", price:310, description:"Быстрый и острый нож.",image:"y.jpg"},
   {id:"knife32", name:"Койот", year:2022, material:"Углерод", price:250, description:"Нож для выживания и туризма.",image:"z.jpg"},
   {id:"knife33", name:"Медведь", year:2023, material:"Сталь", price:300, description:"Мощный нож для охоты.",image:"k.jpg"},
-  // ... остальные записи (можно добавить или убрать дубликаты)
 ];
 
 const ITEMS_PER_PAGE = 24;
@@ -433,6 +491,7 @@ const cartPopup = document.getElementById('cartPopup');
 const cartItems = document.getElementById('cartItems');
 const cartTotal = document.getElementById('cartTotal');
 const cartCount = document.getElementById('cartCount');
+const clearCartBtn = document.getElementById('clearCartBtn');
 
 function getCart() {
   return JSON.parse(localStorage.getItem('cart') || '[]');
@@ -464,21 +523,27 @@ function renderCart() {
   let total = 0;
   let count = 0;
 
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<div style="text-align:center; color:#777; padding:16px 0; font-size:14px;">Корзина пуста</div>';
+    cartTotal.textContent = '0';
+    cartCount.textContent = '0';
+    return;
+  }
+
   cart.forEach(item => {
     const sum = item.price * item.qty;
     total += sum;
     count += item.qty;
 
-    cartItems.innerHTML += 
-      `<div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-        <div>
-          ${item.name} × ${item.qty}<br>
-          $${sum}
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          ${item.name} × ${item.qty}
         </div>
-        <button class="remove-item-btn" data-id="${item.id}">
-          удалить
-        </button>
-      </div>`;
+        <div class="cart-item-total">$${sum}</div>
+        <button class="remove-item-btn" data-id="${item.id}">Удалить</button>
+      </div>
+    `;
   });
 
   cartTotal.textContent = total;
@@ -486,10 +551,19 @@ function renderCart() {
 
   document.querySelectorAll('.remove-item-btn').forEach(btn => {
     btn.onclick = () => {
-      removeFromCart(btn.dataset.id);
+      const id = btn.dataset.id;
+      let cart = getCart();
+      cart = cart.filter(item => item.id !== id);
+      saveCart(cart);
+      renderCart();
     };
   });
 }
+
+clearCartBtn.onclick = () => {
+  localStorage.removeItem('cart');
+  renderCart();
+};
 
 function getFiltered() {
   const query = searchInput.value.trim().toLowerCase();
@@ -530,7 +604,6 @@ function renderPage() {
     grid.appendChild(card);
   });
 
-  // Обработчики количества
   document.querySelectorAll('.quantity-row').forEach(row => {
     const minus = row.querySelector('.minus');
     const plus  = row.querySelector('.plus');
@@ -547,7 +620,6 @@ function renderPage() {
     };
   });
 
-  // Обработчики добавления в корзину
   document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
     btn.onclick = () => {
       const row = btn.closest('.knife-card').querySelector('.quantity-row');
@@ -602,22 +674,9 @@ cartIcon.onclick = () => {
   if (cartPopup.style.display === 'block') renderCart();
 };
 
-document.getElementById('clearCartBtn').onclick = () => {
-  localStorage.removeItem('cart');
-  renderCart();
-};
-
-function removeFromCart(productId) {
-  let cart = getCart();
-  cart = cart.filter(item => item.id !== productId);
-  saveCart(cart);
-  renderCart();
-}
-
 // Инициализация
 renderPage();
 renderCart();
 </script>
 </body>
-
 </html>
