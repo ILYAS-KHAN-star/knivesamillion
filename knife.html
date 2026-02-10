@@ -24,11 +24,17 @@
       padding: 0 14px;
     }
 
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 16px 0 24px;
+    }
+
     .back-btn {
       display: inline-flex;
       align-items: center;
-      margin: 12px 0 20px;
-      padding: 8px 14px;
+      padding: 10px 16px;
       background: #000;
       color: #fff;
       text-decoration: none;
@@ -40,6 +46,35 @@
 
     .back-btn:hover {
       background: #222;
+    }
+
+    .social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social a {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .social a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+
+    .social svg {
+      width: 24px;
+      height: 24px;
     }
 
     .product {
@@ -205,53 +240,6 @@
       background: #222;
     }
 
-    /* Блок оформления заказа + иконки */
-    .order-notice {
-      position: relative;
-      background: #fff8e1;
-      border: 1px solid #ffe082;
-      border-radius: 10px;
-      padding: 12px 70px 12px 16px;
-      margin: 12px auto 24px;
-      max-width: 95%;
-      text-align: left;
-      font-size: 14px;
-      font-weight: 500;
-      color: #444;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    }
-
-    .order-notice strong {
-      color: #000;
-    }
-
-    .social {
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%);
-      display: flex;
-      gap: 10px;
-    }
-
-    .social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: transform 0.2s;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.12);
-      background: #000;
-      color: #fff;
-    }
-
-    .social a:hover {
-      transform: scale(1.12);
-    }
-
     /* Модальное окно */
     .modal {
       display: none;
@@ -288,15 +276,14 @@
       display: block;
     }
 
-    /* ✅ КРЕСТИК В ПРАВОМ ВЕРХНЕМ УГЛУ КАРТИНКИ на белом фоне */
     .modal-close {
       position: absolute;
       top: 12px;
       right: 12px;
       width: 36px;
       height: 36px;
-      background: rgba(255, 255, 255, 0.95); /* белый фон */
-      color: #000000;                        /* чёрный крестик */
+      background: rgba(255, 255, 255, 0.95);
+      color: #000000;
       border-radius: 50%;
       font-size: 22px;
       font-weight: 600;
@@ -304,9 +291,7 @@
       text-align: center;
       cursor: pointer;
       user-select: none;
-      box-shadow: 
-        0 4px 16px rgba(0,0,0,0.3),
-        0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
       transition: all 0.2s ease;
       z-index: 10;
     }
@@ -314,9 +299,7 @@
     .modal-close:hover {
       background: #ffffff;
       transform: scale(1.1);
-      box-shadow: 
-        0 6px 20px rgba(0,0,0,0.4),
-        0 3px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 3px 12px rgba(0,0,0,0.3);
       color: #333;
     }
 
@@ -361,12 +344,8 @@
         height: 50px;
         font-size: 28px;
       }
-      .nav-arrow.prev {
-        left: -60px;
-      }
-      .nav-arrow.next {
-        right: -60px;
-      }
+      .nav-arrow.prev { left: -60px; }
+      .nav-arrow.next { right: -60px; }
       .modal-close {
         width: 44px;
         height: 44px;
@@ -386,50 +365,20 @@
       animation: modalFadeIn 0.25s;
     }
 
-    /* Адаптив */
-    @media (max-width: 420px) {
-      .order-notice {
-        padding: 10px 54px 10px 16px;
-        font-size: 13px;
-      }
-      .social {
-        right: 10px;
-        gap: 8px;
-      }
-      .social a {
-        width: 34px;
-        height: 34px;
-      }
-    }
-
     @media (min-width: 769px) {
       .product {
         flex-direction: row;
         gap: 40px;
       }
-      .gallery {
-        flex: 1 1 520px;
-      }
-      .info {
-        flex: 1 1 420px;
-      }
-      .main-image-wrapper {
-        height: 460px;
-        aspect-ratio: auto;
-      }
+      .gallery { flex: 1 1 520px; }
+      .info    { flex: 1 1 420px; }
+      .main-image-wrapper { height: 460px; aspect-ratio: auto; }
       .actions {
         flex-direction: row;
         align-items: center;
         margin: 32px 0 0;
       }
-      .add-to-cart-btn {
-        flex: 1;
-        max-width: 320px;
-      }
-      .order-notice {
-        max-width: 500px;
-        padding: 14px 80px 14px 24px;
-      }
+      .add-to-cart-btn { flex: 1; max-width: 320px; }
     }
 
     @media (max-width: 380px) {
@@ -443,24 +392,23 @@
 </head>
 <body>
 
-<div class="order-notice">
-  Для оформления заказа отправьте скриншот корзины нам в Telegramm или Whatsapp
-  <div class="social">
-    <a href="https://t.me/AMERMILS" target="_blank" class="telegram">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-        <path d="M9.993 15.674 9.74 19.2c.36 0 .516-.155.704-.34l1.69-1.61 3.5 2.56c.64.355 1.09.168 1.25-.59l2.27-10.68c.2-.92-.33-1.28-.95-1.05L2.74 9.15c-.9.35-.89.85-.16 1.07l4.3 1.34L16.9 6.6c.47-.31.9-.14.55.17z"/>
-      </svg>
-    </a>
-    <a href="https://wa.me/79991234567" target="_blank" class="whatsapp">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-      </svg>
-    </a>
-  </div>
-</div>
-
 <div class="container">
-  <a href="knives.html" class="back-btn">← К товарам</a>
+  <div class="top-bar">
+    <a href="knives.html" class="back-btn">← К товарам</a>
+    
+    <div class="social">
+      <a href="https://t.me/AMERMILS" target="_blank" title="Написать в Telegram">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M9.993 15.674 9.74 19.2c.36 0 .516-.155.704-.34l1.69-1.61 3.5 2.56c.64.355 1.09.168 1.25-.59l2.27-10.68c.2-.92-.33-1.28-.95-1.05L2.74 9.15c-.9.35-.89.85-.16 1.07l4.3 1.34L16.9 6.6c.47-.31.9-.14.55.17z"/>
+        </svg>
+      </a>
+      <a href="https://wa.me/79991234567" target="_blank" title="Написать в WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
 
   <div class="product">
     <div class="gallery">
@@ -500,7 +448,7 @@
   </div>
 </div>
 
-<!-- Модальное окно с листанием -->
+<!-- Модальное окно -->
 <div id="imageModal" class="modal">
   <div class="modal-content-wrapper">
     <button class="nav-arrow prev" id="prevArrow">←</button>
@@ -515,19 +463,16 @@
 </div>
 
 <script>
-// Функции корзины
+// Ваш JavaScript-код остаётся без изменений
 function getCart() {
   return JSON.parse(localStorage.getItem('cart') || '[]');
 }
-
 function saveCart(cart) {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
-
 function addToCart(productId, quantity) {
   let cart = getCart();
   const existingItem = cart.find(item => item.id === productId);
-
   if (existingItem) {
     existingItem.qty += quantity;
   } else {
@@ -537,7 +482,6 @@ function addToCart(productId, quantity) {
     const year = document.getElementById('year').textContent;
     const material = document.getElementById('material').textContent;
     const description = document.getElementById('description').textContent;
-
     cart.push({
       id: productId,
       name: name,
@@ -549,39 +493,37 @@ function addToCart(productId, quantity) {
       description: description
     });
   }
-
   saveCart(cart);
 }
 
-// Все товары
 const knives = [
-  {id:"knife1",  name:"Ката",        year:2022, material:"Сталь",     price:250,   description:"Традиционная японская катана.", images:["1.jpg","2.jpg","3.jpg","4.jpg"]},
-  {id:"knife2",  name:"Танто",       year:2023, material:"Углерод",   price:180,   description:"Компактный боевой нож.", images:["2.jpg","13.jpg","14.jpg"]},
-  {id:"knife3",  name:"Финка",       year:2021, material:"Сталь",     price:200,   description:"Финский нож для походов.", images:["3.jpg","4.jpg"]},
-  {id:"knife4",  name:"Керамбит",    year:2023, material:"Керамика",  price:220,   description:"Нож с изогнутым лезвием.", images:["4.jpg"]},
-  {id:"knife5",  name:"Штык-нож",    year:2020, material:"Сталь",     price:300,   description:"", image:"knife5.jpeg"},
-  {id:"knife6",  name:"Боуи",        year:2019, material:"Сталь",     price:280,   description:"Американский нож-боевой инструмент.", images:["f.jpg","e.jpg"]},
-  {id:"knife7",  name:"Сай",         year:2021, material:"Углерод",   price:15000, description:"Короткий тренировочный нож.", images:["f.jpg","e.jpg"]},
-  {id:"knife8",  name:"Широбан",     year:2022, material:"Сталь",     price:260,   description:"Традиционный японский нож.", images:["f.jpg","e.jpg"]},
-  {id:"knife9",  name:"Рейнджер",    year:2020, material:"Сталь",     price:240,   description:"Нож для выживания.", images:["f.jpg","e.jpg"]},
-  {id:"knife10", name:"Керамбит Pro",year:2023, material:"Керамика",  price:320,   description:"Профессиональный керамбит.", images:["f.jpg","e.jpg"]},
-  {id:"knife11", name:"Фалькон",     year:2021, material:"Сталь",     price:210,   description:"Универсальный туристический нож.", images:["f.jpg","e.jpg"]},
-  {id:"knife12", name:"Астра",       year:2022, material:"Углерод",   price:230,   description:"Легкий нож для походов.", images:["f.jpg","e.jpg"]},
-  {id:"knife13", name:"Рапира",      year:2020, material:"Сталь",     price:1900,  description:"Элегантный нож для коллекции.", images:["f.jpg","e.jpg"]},
-  {id:"knife14", name:"Викинг",      year:2019, material:"Сталь",     price:270,   description:"Нож в стиле викингов.", images:["f.jpg","e.jpg"]},
-  {id:"knife15", name:"Тандер",      year:2023, material:"Керамика",  price:310,   description:"Боевой нож прочным лезвием.", images:["f.jpg","e.jpg"]},
-  {id:"knife16", name:"Акула",       year:2021, material:"Сталь",     price:220,   description:"Нож агрессивным дизайном.", images:["f.jpg","e.jpg"]},
-  {id:"knife17", name:"Барс",        year:2022, material:"Углерод",   price:260,   description:"Компактный нож для туризма.", images:["f.jpg","e.jpg"]},
-  {id:"knife18", name:"Тигр",        year:2020, material:"Сталь",     price:280,   description:"Коллекционный боевой нож.", images:["f.jpg","e.jpg"]},
-  {id:"knife19", name:"Сокол",       year:2021, material:"Керамика",  price:240,   description:"Быстрый и легкий нож.", images:["f.jpg","e.jpg"]},
-  {id:"knife20", name:"Феникс",      year:2023, material:"Сталь",     price:32000, description:"Профессиональный нож для выживания.", image:"s.jpg"},
-  {id:"knife21", name:"Дракон",      year:2022, material:"Сталь",     price:300,   description:"Мощный боевой нож.", image:"u.jpg"},
-  {id:"knife22", name:"Орёл",        year:2020, material:"Углерод",   price:230,   description:"Легкий туристический нож.", image:"v.jpg"},
-  {id:"knife23", name:"Пантера",     year:2021, material:"Сталь",     price:270,   description:"Коллекционный нож изогнутым лезвием.", image:"w.jpg"},
-  {id:"knife24", name:"Волк",        year:2019, material:"Сталь",     price:2500,  description:"Надёжный нож для походов.", image:"x.jpg"},
-  {id:"knife25", name:"Гепард",      year:2023, material:"Керамика",  price:310,   description:"Быстрый и острый нож.", image:"y.jpg"},
-  {id:"knife32", name:"Койот",       year:2022, material:"Углерод",   price:250,   description:"Нож для выживания и туризма.", image:"z.jpg"},
-  {id:"knife33", name:"Медведь",     year:2023, material:"Сталь",     price:300,   description:"Мощный нож для охоты.", image:"k.jpg"}
+  {id:"knife1", name:"Ката", year:2022, material:"Сталь", price:250, description:"Традиционная японская катана.", images:["1.jpg","2.jpg","3.jpg","4.jpg"]},
+  {id:"knife2", name:"Танто", year:2023, material:"Углерод", price:180, description:"Компактный боевой нож.", images:["2.jpg","13.jpg","14.jpg"]},
+  {id:"knife3", name:"Финка", year:2021, material:"Сталь", price:200, description:"Финский нож для походов.", images:["3.jpg","4.jpg"]},
+  {id:"knife4", name:"Керамбит", year:2023, material:"Керамика", price:220, description:"Нож с изогнутым лезвием.", images:["4.jpg"]},
+  {id:"knife5", name:"Штык-нож", year:2020, material:"Сталь", price:300, description:"", image:"knife5.jpeg"},
+  {id:"knife6", name:"Боуи", year:2019, material:"Сталь", price:280, description:"Американский нож-боевой инструмент.", images:["f.jpg","e.jpg"]},
+  {id:"knife7", name:"Сай", year:2021, material:"Углерод", price:15000, description:"Короткий тренировочный нож.", images:["f.jpg","e.jpg"]},
+  {id:"knife8", name:"Широбан", year:2022, material:"Сталь", price:260, description:"Традиционный японский нож.", images:["f.jpg","e.jpg"]},
+  {id:"knife9", name:"Рейнджер", year:2020, material:"Сталь", price:240, description:"Нож для выживания.", images:["f.jpg","e.jpg"]},
+  {id:"knife10", name:"Керамбит Pro",year:2023, material:"Керамика", price:320, description:"Профессиональный керамбит.", images:["f.jpg","e.jpg"]},
+  {id:"knife11", name:"Фалькон", year:2021, material:"Сталь", price:210, description:"Универсальный туристический нож.", images:["f.jpg","e.jpg"]},
+  {id:"knife12", name:"Астра", year:2022, material:"Углерод", price:230, description:"Легкий нож для походов.", images:["f.jpg","e.jpg"]},
+  {id:"knife13", name:"Рапира", year:2020, material:"Сталь", price:1900, description:"Элегантный нож для коллекции.", images:["f.jpg","e.jpg"]},
+  {id:"knife14", name:"Викинг", year:2019, material:"Сталь", price:270, description:"Нож в стиле викингов.", images:["f.jpg","e.jpg"]},
+  {id:"knife15", name:"Тандер", year:2023, material:"Керамика", price:310, description:"Боевой нож прочным лезвием.", images:["f.jpg","e.jpg"]},
+  {id:"knife16", name:"Акула", year:2021, material:"Сталь", price:220, description:"Нож агрессивным дизайном.", images:["f.jpg","e.jpg"]},
+  {id:"knife17", name:"Барс", year:2022, material:"Углерод", price:260, description:"Компактный нож для туризма.", images:["f.jpg","e.jpg"]},
+  {id:"knife18", name:"Тигр", year:2020, material:"Сталь", price:280, description:"Коллекционный боевой нож.", images:["f.jpg","e.jpg"]},
+  {id:"knife19", name:"Сокол", year:2021, material:"Керамика", price:240, description:"Быстрый и легкий нож.", images:["f.jpg","e.jpg"]},
+  {id:"knife20", name:"Феникс", year:2023, material:"Сталь", price:32000, description:"Профессиональный нож для выживания.", image:"s.jpg"},
+  {id:"knife21", name:"Дракон", year:2022, material:"Сталь", price:300, description:"Мощный боевой нож.", image:"u.jpg"},
+  {id:"knife22", name:"Орёл", year:2020, material:"Углерод", price:230, description:"Легкий туристический нож.", image:"v.jpg"},
+  {id:"knife23", name:"Пантера", year:2021, material:"Сталь", price:270, description:"Коллекционный нож изогнутым лезвием.", image:"w.jpg"},
+  {id:"knife24", name:"Волк", year:2019, material:"Сталь", price:2500, description:"Надёжный нож для походов.", image:"x.jpg"},
+  {id:"knife25", name:"Гепард", year:2023, material:"Керамика", price:310, description:"Быстрый и острый нож.", image:"y.jpg"},
+  {id:"knife32", name:"Койот", year:2022, material:"Углерод", price:250, description:"Нож для выживания и туризма.", image:"z.jpg"},
+  {id:"knife33", name:"Медведь", year:2023, material:"Сталь", price:300, description:"Мощный нож для охоты.", image:"k.jpg"}
 ];
 
 const params = new URLSearchParams(window.location.search);
@@ -657,9 +599,7 @@ if (!knife) {
   };
 }
 
-// ──────────────────────────────────────────────
-// МОДАЛЬНОЕ ОКНО + СВАЙПЫ + СТРЕЛКИ + КЛАВИАТУРА
-// ──────────────────────────────────────────────
+// Модальное окно логика
 const modal = document.getElementById("imageModal");
 const modalImg = document.getElementById("modalImage");
 const closeBtn = document.querySelector(".modal-close");
@@ -681,27 +621,23 @@ function openModal(startIndex = 0) {
 
 function closeModal() {
   modal.classList.remove("show");
-  setTimeout(() => modal.style.display = "none", 300);
+  setTimeout(() => modal.style.display = "none", 100);
 }
 
-// Открытие по клику на главную картинку
 mainImage.addEventListener("click", () => {
   if (!mainImage.src || mainImage.src.includes("placeholder")) return;
   const startIdx = currentImages.findIndex(img => mainImage.src.endsWith(img));
   openModal(startIdx >= 0 ? startIdx : 0);
 });
 
-// Стрелки
 prevArrow.onclick = () => showImage(currentIndex - 1);
 nextArrow.onclick = () => showImage(currentIndex + 1);
 
-// Закрытие
 closeBtn.onclick = closeModal;
 modal.addEventListener("click", (e) => {
   if (e.target === modal) closeModal();
 });
 
-// Клавиатура
 document.addEventListener("keydown", (e) => {
   if (modal.style.display !== "flex") return;
   if (e.key === "Escape") closeModal();
@@ -709,7 +645,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") showImage(currentIndex + 1);
 });
 
-// Свайпы на мобильных
 let touchStartX = 0;
 let touchEndX = 0;
 const SWIPE_THRESHOLD = 60;
@@ -726,14 +661,14 @@ modal.addEventListener('touchend', (e) => {
 function handleSwipe() {
   const diffX = touchEndX - touchStartX;
   if (Math.abs(diffX) < SWIPE_THRESHOLD) return;
-
   if (diffX > 0) {
-    showImage(currentIndex - 1);  // свайп вправо → назад
+    showImage(currentIndex - 1);
   } else {
-    showImage(currentIndex + 1);  // свайп влево → вперёд
+    showImage(currentIndex + 1);
   }
 }
 </script>
 </body>
-</html>
+</html> 
+
 
